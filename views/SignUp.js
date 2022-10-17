@@ -20,8 +20,8 @@ export class SignUp {
                 <input type="password" class="form-control" id="inputPassword4">
             </div>
             <div class="col-10">
-                <label for="inputAddress" class="form-label">Photo de profil</label>
-                <input type="text" class="form-control" id="inputAddress">
+                <label for="inputPicture" class="form-label">Photo de profil</label>
+                <input type="text" class="form-control" id="inputPicture">
             </div>
             <div class="col-2">
                 <button id="start-camera" class="btn btn-primary">Activer WebCam</button>
@@ -32,7 +32,8 @@ export class SignUp {
                 <canvas id="canvas" width="320" height="240"></canvas>
             <div class="col-12">
                 <label for="inputAddress" class="form-label">Adresse</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="1 rue Gerland">
+                <input class="form-control" list="datalistOptions" id="inputAddress" placeholder="1 rue Gerland">
+                <datalist id="datalistOptions"></datalist>
             </div>
             <div class="col-md-6">
                 <label for="inputCity" class="form-label">Ville</label>

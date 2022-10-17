@@ -7,11 +7,12 @@ camera_button.addEventListener('click', function(e) {
 	e.preventDefault()
 	navigator.mediaDevices.getUserMedia({ video: true, audio: false })
 	.then((stream) => {
-	  video.srcObject = stream;
-	  video.play();
+	    video.srcObject = stream;
+	    video.play();
 	})
 	.catch((err) => {
-	  console.error(`An error occurred: ${err}`);
+        alert(`An error occurred: ${err}`)
+	    console.error(`An error occurred: ${err}`);
 	});
 }, false);
 
