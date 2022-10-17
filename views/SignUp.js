@@ -21,7 +21,7 @@ export class SignUp {
             </div>
             <div class="col-10">
                 <label for="inputPicture" class="form-label">Photo de profil</label>
-                <input type="text" class="form-control" id="inputPicture">
+                <input type="file" class="form-control" id="inputPicture" accept="image/jpeg, image/png, image/jpg">
             </div>
             <div class="col-2">
                 <button id="start-camera" class="btn btn-primary">Activer WebCam</button>
@@ -30,18 +30,14 @@ export class SignUp {
                 <video id="video" width="320" height="240" autoplay></video>
                 <button id="click-photo" class="btn btn-primary">Prendre la photo</button>
                 <canvas id="canvas" width="320" height="240"></canvas>
+            </div>
+            <div class="col-12">
+                <div id="display-image" style="width:400px;height:225px;border:1px solid black;background-position:center;background-size: cover;"></div>
+            </div>
             <div class="col-12">
                 <label for="inputAddress" class="form-label">Adresse</label>
                 <input class="form-control" list="datalistOptions" id="inputAddress" placeholder="1 rue Gerland">
                 <datalist id="datalistOptions"></datalist>
-            </div>
-            <div class="col-md-6">
-                <label for="inputCity" class="form-label">Ville</label>
-                <input type="text" class="form-control" id="inputCity" placeholder="Lyon">
-            </div>
-            <div class="col-md-6">
-                <label for="inputZip" class="form-label">Code Postal</label>
-                <input type="number" class="form-control" id="inputZip" placeholder="69007">
             </div>
             <div class="col-12">
                 <button type="submit" class="btn btn-primary">S'inscrire</button>
