@@ -1,15 +1,15 @@
 export class SignUp {
     html() {
         return `
-        <p>Inscription</p>
-        <form class="row g-3">
+        <h1>Inscription</h1>
+        <form class="row g-3" id="my-form">
             <div class="col-md-6">
                 <label for="inputName" class="form-label">Nom</label>
                 <input type="name" class="form-control" id="inputName">
             </div>
             <div class="col-md-6">
                 <label for="inputLastname" class="form-label">Prénom</label>
-                <input type="lastname" class="form-control" id="lastname">
+                <input type="lastname" class="form-control" id="inputLastname">
             </div>
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Email</label>
@@ -43,6 +43,6 @@ export class SignUp {
                 <button type="submit" class="btn btn-primary">S'inscrire</button>
             </div>
         </form>
-    `
+        `
     }
 }

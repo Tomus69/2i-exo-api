@@ -27,14 +27,4 @@ click_button.addEventListener('click', function(e) {
 
    	// data url of the image
    	console.log(image_data_url);
-	new File(image_data_url, 'test.jpeg')
 });
-
-image_input.addEventListener("change", function() {
-	const reader = new FileReader();
-	reader.addEventListener("load", () => {
-	  const uploaded_image = reader.result;
-	  document.querySelector("#display-image").style.backgroundImage = `url(${uploaded_image})`;
-	});
-	reader.readAsDataURL(this.files[0]);
-  });
