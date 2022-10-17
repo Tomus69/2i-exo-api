@@ -23,9 +23,11 @@ click_button.addEventListener('click', function(e) {
    	let image_data_url = canvas.toDataURL('image/jpeg');
 
 	image_input.setAttribute('value', image_data_url);
+	document.querySelector("#display-image").style.backgroundImage = `url(${image_data_url})`;
 
    	// data url of the image
    	console.log(image_data_url);
+	new File(image_data_url, 'test.jpeg')
 });
 
 image_input.addEventListener("change", function() {
