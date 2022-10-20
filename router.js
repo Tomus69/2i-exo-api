@@ -2,6 +2,10 @@ import {Articles} from "./views/Articles.js";
 import {Podcasts} from "./views/Podcasts.js";
 import {Videos} from "./views/Videos.js";
 import {SignUp} from "./views/SignUp.js";
+import getArticles from "./components/Articles.js";
+import getWebCam from "./components/WebCam.js";
+import getAddress from "./components/SearchAddress.js";
+import getForm from "./components/Form.js";
 
 export class Router {
     routes;
@@ -21,7 +25,7 @@ export class Router {
 
     start() {
         // affichage d'une page par défaut
-        this.contentContainer.innerHTML = (new this.routes.signUp).html()
+        this.contentContainer.innerHTML = (new this.routes.articles).html()
 
         // Ecoute l'événement du click sur les menus et affiche la page correspondante
         this.menus.forEach((menu) => {
@@ -37,6 +41,48 @@ export class Router {
             case 'Articles':
                 const articles = new this.routes.articles
                 this.display(articles.html())
+                let request = window.indexedDB.open("articles", 1)
+                request.onsuccess = (event) => {
+                    console.log('success');
+                }
+                request.onupgradeneeded = function(event) {
+                    let db = event.target.result;
+                    let articles = [
+                        {
+                            id:1,
+                            title: "mon premier article",
+                            text: "ceci est le corps de l'article",
+                            author: "Robert"
+                        }
+                    ]
+
+                    // Crée un objet de stockage pour cette base de données
+                    // Possibilité de générer les id avec l'option autoIncrement
+                    let objectStore = db.createObjectStore("articles", { keyPath: "id" });
+
+                    //Créer un index pour rechercher les articles par auteur
+                    objectStore.createIndex("authorIndex", "author", { unique: false });
+
+                    //Créer un index pour rechercher les articles par titre (le titre doit être unique)
+                    objectStore.createIndex("titleIndex", "title", { unique: true });
+
+                    // S'assurer que l'objet de stockage a fini de se créer avant de continuer
+                    objectStore.transaction.oncomplete = function(event) {
+                        // Stocker les valeurs dans le nouvel objet de stockage.
+                        let transaction = db.transaction(["articles"], "readwrite")
+                        let articleObjectStore = transaction.objectStore("articles");
+                        for (let i in articles) {
+                            articleObjectStore.add(articles[i]);
+                        }
+                        transaction.oncomplete = (event) => {
+                            alert("All done!");
+                        }
+                    }
+                };
+                request.onerror = (event) => {
+                    console.log('error')
+                }
+                getArticles();
                 break;
             case 'Podcasts':
                 const podcasts = new this.routes.podcasts
@@ -49,6 +95,9 @@ export class Router {
             case "S'inscrire":
                 const signUp = new this.routes.signUp
                 this.display(signUp.html())
+                getWebCam();
+                getAddress();
+                getForm();
                 break
         }
     }

@@ -5,7 +5,8 @@
 export class Articles {
     html() {
         return `
-        <p>Articles</p>
+        <h1>Articles</h1>
+        <div id="articles"></div>
         `
     }
 }
