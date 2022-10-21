@@ -25,7 +25,7 @@ export class Router {
 
     start() {
         // affichage d'une page par défaut
-        this.contentContainer.innerHTML = (new this.routes.articles).html()
+        this.contentContainer.innerHTML = `<h1>Accueil</h1>`;
 
         // Ecoute l'événement du click sur les menus et affiche la page correspondante
         this.menus.forEach((menu) => {
@@ -41,24 +41,22 @@ export class Router {
             case 'Articles':
                 const articles = new this.routes.articles
                 this.display(articles.html())
-                let request = window.indexedDB.open("articles", 1)
-                request.onsuccess = (event) => {
-                    console.log('success');
-                }
+                const request = window.indexedDB.open("articles", 1)
+                request.onsuccess = () => {}
                 request.onupgradeneeded = function(event) {
-                    let db = event.target.result;
-                    let articles = [
+                    const db = event.target.result;
+                    const articles = [
                         {
-                            id:1,
-                            title: "mon premier article",
-                            text: "ceci est le corps de l'article",
+                            id: 1,
+                            title: "Mon premier article",
+                            text: "Ceci est le corps de l'article",
                             author: "Robert"
                         }
                     ]
 
                     // Crée un objet de stockage pour cette base de données
                     // Possibilité de générer les id avec l'option autoIncrement
-                    let objectStore = db.createObjectStore("articles", { keyPath: "id" });
+                    const objectStore = db.createObjectStore("articles", { keyPath: "id", autoIncrement: true });
 
                     //Créer un index pour rechercher les articles par auteur
                     objectStore.createIndex("authorIndex", "author", { unique: false });
@@ -69,8 +67,8 @@ export class Router {
                     // S'assurer que l'objet de stockage a fini de se créer avant de continuer
                     objectStore.transaction.oncomplete = function(event) {
                         // Stocker les valeurs dans le nouvel objet de stockage.
-                        let transaction = db.transaction(["articles"], "readwrite")
-                        let articleObjectStore = transaction.objectStore("articles");
+                        const transaction = db.transaction(["articles"], "readwrite")
+                        const articleObjectStore = transaction.objectStore("articles");
                         for (let i in articles) {
                             articleObjectStore.add(articles[i]);
                         }
@@ -79,9 +77,13 @@ export class Router {
                         }
                     }
                 };
-                request.onerror = (event) => {
-                    console.log('error')
+                request.onerror = (e) => {
+                    console.error('error:', e.error)
                 }
+                articles.createButton();
+                articles.closeModalButton();
+                articles.closeModalButton2();
+                articles.submit();
                 getArticles();
                 break;
             case 'Podcasts':

@@ -8,26 +8,23 @@ export default function getWebCam() {
 	camera_button.addEventListener('click', function(e) {
 		e.preventDefault()
 		navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-		.then((stream) => {
-			video.srcObject = stream;
-			video.play();
-		})
-		.catch((err) => {
-			alert(`An error occurred: ${err}`)
-			console.error(`An error occurred: ${err}`);
-		});
+			.then((stream) => {
+				video.srcObject = stream;
+				video.play();
+			})
+			.catch((err) => {
+				alert(`An error occurred: ${err}`)
+				console.error(`An error occurred: ${err}`);
+			});
 	}, false);
 	
 	click_button.addEventListener('click', function(e) {
 		e.preventDefault();
-		   canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-		   const image_data_url = canvas.toDataURL('image/jpeg');
+		canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+		const image_data_url = canvas.toDataURL('image/jpeg');
 	
 		image_input.setAttribute('value', image_data_url);
 		document.querySelector("#display-image").style.backgroundImage = `url(${image_data_url})`;
-	
-		   // data url of the image
-		   console.log(image_data_url);
 	});
 }
 
